@@ -3,7 +3,7 @@ using { sap.common.CodeList } from '@sap/cds/common';
 namespace myService;
 
 entity OrdersStatusCodeList : CodeList {
-  @Common.Text : { $value: name, ![@UI.TextArrangement]: #TextOnly }
+    @Common.Text : { $value: name, ![@UI.TextArrangement]: #TextOnly }
   key code : String(20);
   criticality : Integer;
 }
