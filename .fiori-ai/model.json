@@ -1,0 +1,263 @@
+{
+    "namespace": "myService",
+    "entities": [
+        {
+            "name": "Books",
+            "label": "Book",
+            "associations": [
+                {
+                    "name": "authors",
+                    "target": "Authors",
+                    "multiplicity": "many",
+                    "backAssociation": "books"
+                },
+                {
+                    "name": "orders",
+                    "target": "Orders",
+                    "multiplicity": "one",
+                    "isComposition": false
+                }
+            ],
+            "labelPlural": "Books",
+            "elements": [
+                {
+                    "name": "ID",
+                    "type": "UUID",
+                    "key": true,
+                    "label": ""
+                },
+                {
+                    "name": "bookID",
+                    "type": "String(50)",
+                    "label": "Book ID",
+                    "additionalInfo": "Unique identifier for each book",
+                    "essentialElement": true,
+                    "semanticKey": true
+                },
+                {
+                    "name": "title",
+                    "type": "String(100)",
+                    "label": "Title",
+                    "additionalInfo": "Title of the book",
+                    "essentialElement": true
+                },
+                {
+                    "name": "authorName",
+                    "type": "String(100)",
+                    "label": "Author Name",
+                    "additionalInfo": "Name of the author of the book",
+                    "essentialElement": true
+                },
+                {
+                    "name": "price",
+                    "type": "Decimal",
+                    "label": "Price",
+                    "additionalInfo": "Price of the book",
+                    "essentialElement": false
+                },
+                {
+                    "name": "quantity",
+                    "type": "Integer",
+                    "label": "Quantity",
+                    "additionalInfo": "Available quantity of the book",
+                    "essentialElement": false
+                }
+            ]
+        },
+        {
+            "name": "Authors",
+            "label": "Author",
+            "associations": [
+                {
+                    "name": "books",
+                    "target": "Books",
+                    "multiplicity": "one",
+                    "isComposition": false
+                }
+            ],
+            "labelPlural": "Authors",
+            "elements": [
+                {
+                    "name": "ID",
+                    "type": "UUID",
+                    "key": true,
+                    "label": ""
+                },
+                {
+                    "name": "authorID",
+                    "type": "String(50)",
+                    "label": "Author ID",
+                    "additionalInfo": "Unique identifier for each author",
+                    "essentialElement": true,
+                    "semanticKey": true
+                },
+                {
+                    "name": "name",
+                    "type": "String(100)",
+                    "label": "Name",
+                    "additionalInfo": "Name of the author",
+                    "essentialElement": true
+                }
+            ]
+        },
+        {
+            "name": "Orders",
+            "label": "Order",
+            "associations": [
+                {
+                    "name": "books",
+                    "target": "Books",
+                    "multiplicity": "many",
+                    "backAssociation": "orders"
+                }
+            ],
+            "labelPlural": "Orders",
+            "elements": [
+                {
+                    "name": "ID",
+                    "type": "UUID",
+                    "key": true,
+                    "label": ""
+                },
+                {
+                    "name": "orderID",
+                    "type": "String(50)",
+                    "label": "Order ID",
+                    "additionalInfo": "Unique identifier for each order",
+                    "essentialElement": true,
+                    "semanticKey": true
+                },
+                {
+                    "name": "bookID",
+                    "type": "String(50)",
+                    "label": "Book ID",
+                    "additionalInfo": "Reference to the book being ordered",
+                    "essentialElement": true
+                },
+                {
+                    "name": "status",
+                    "type": "String(20)",
+                    "label": "Status",
+                    "additionalInfo": "Status of the order (Pending, Accepted, Rejected)",
+                    "essentialElement": true,
+                    "values": [
+                        "Pending",
+                        "Accepted",
+                        "Rejected"
+                    ],
+                    "hasFixedValuesList": true,
+                    "hasColorsOrCriticality": true,
+                    "reason": "The status of an order can be considered good or bad depending on its value. 'Accepted' is generally positive, 'Rejected' is negative, and 'Pending' can be seen as neutral or critical depending on the context.",
+                    "mapping": [
+                        {
+                            "value": "Pending",
+                            "colorOrCriticality": "neutral",
+                            "reason": "'Pending' is a neutral state indicating that no decision has been made yet."
+                        },
+                        {
+                            "value": "Accepted",
+                            "colorOrCriticality": "positive",
+                            "reason": "'Accepted' is a positive outcome indicating the order has been approved."
+                        },
+                        {
+                            "value": "Rejected",
+                            "colorOrCriticality": "negative",
+                            "reason": "'Rejected' is a negative outcome indicating the order has been declined."
+                        }
+                    ],
+                    "criticalities": [
+                        0,
+                        3,
+                        1
+                    ]
+                },
+                {
+                    "name": "orderQuantity",
+                    "type": "Integer",
+                    "label": "Order Quantity",
+                    "additionalInfo": "Quantity of books ordered",
+                    "essentialElement": true
+                }
+            ]
+        }
+    ],
+    "service": {
+        "name": "myServiceSrv",
+        "path": "srv/service.cds"
+    },
+    "applications": [
+        {
+            "pages": [
+                {
+                    "type": "ListReport",
+                    "entityType": "Books",
+                    "listReportContent": {
+                        "loadDataOnAppLaunch": "Enabled",
+                        "tables": [
+                            {
+                                "title": "Books List",
+                                "id": "booksListTable",
+                                "baseEntityType": "Books",
+                                "columns": [
+                                    "title",
+                                    "authorName",
+                                    "price",
+                                    "quantity"
+                                ]
+                            }
+                        ],
+                        "filters": [
+                            "title",
+                            "authorName",
+                            "price",
+                            "quantity"
+                        ]
+                    }
+                },
+                {
+                    "type": "ObjectPage",
+                    "entityType": "Books",
+                    "objectPageContent": {
+                        "tableSectionAssociations": [
+                            "authors"
+                        ],
+                        "sections": [
+                            {
+                                "title": "Book Details",
+                                "id": "bookDetails",
+                                "isTableSection": false,
+                                "fields": [
+                                    "bookID",
+                                    "title",
+                                    "authorName",
+                                    "price",
+                                    "quantity"
+                                ]
+                            },
+                            {
+                                "title": "Authors",
+                                "id": "authorsSection",
+                                "isTableSection": true,
+                                "fields": [
+                                    "authors/authorID",
+                                    "authors/name"
+                                ]
+                            }
+                        ],
+                        "tabs": [
+                            {
+                                "title": "Main",
+                                "id": "mainTab",
+                                "subsections": [
+                                    "bookDetails",
+                                    "authorsSection"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ],
+            "name": "approvalManagement"
+        }
+    ]
+}

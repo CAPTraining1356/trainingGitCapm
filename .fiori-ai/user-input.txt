@@ -1,0 +1,84 @@
+Scenario Overview
+
+Create a sample SAP BTP CAPM application that:
+
+Displays a list of books with their respective authors.
+Allows users to select books for placing orders.
+Provides "Accept" and "Reject" buttons at the bottom of the UI to process the selected orders.
+The buttons should update the order status and reflect the changes in the system.
+
+Step 1: Define the Application Requirements
+Data Model:
+
+Include entities for Books and Authors.
+Define an entity for Orders to manage book orders with fields like:
+Book ID (reference to the book being ordered).
+Status (Pending, Accepted, Rejected).
+Order Quantity.
+Actions:
+
+Accept: Updates the status of selected orders to "Accepted."
+Reject: Updates the status of selected orders to "Rejected."
+Step 2: Set Up the Backend Service
+Expose Data:
+
+A service should expose:
+A list of books with author information.
+Orders related to books.
+Support querying and filtering books and orders.
+Implement Actions:
+
+Backend logic for:
+Accepting selected orders by updating their status to "Accepted."
+Rejecting selected orders by updating their status to "Rejected."
+Validation:
+
+Ensure that actions are idempotent (cannot re-accept or re-reject).
+Handle invalid or missing order IDs gracefully.
+Step 3: Add UI Annotations for Fiori Elements
+List Report:
+
+Configure the main view to display:
+List of books with fields like Title, Author Name, Price, and Quantity.
+Allow users to select multiple rows.
+Action Buttons:
+
+Add "Accept" and "Reject" buttons at the bottom of the page.
+Bind these buttons to the backend actions.
+Object Page:
+
+Configure a detailed view for each book, showing additional details like a summary or genre.
+Step 4: Generate the Fiori Elements App
+Use the App Generator:
+
+Open SAP Business Application Studio and create a new Fiori Elements app.
+Bind the app to the backend service that provides book and order data.
+Select the List Report template.
+Enable multi-select functionality in the List Report.
+Customize the Generated App:
+
+Ensure that "Accept" and "Reject" buttons are displayed at the bottom of the List Report.
+Test the integration with the backend actions.
+Step 5: Test Locally
+Run the Backend:
+Start the CAPM service locally using cds run.
+Run the App:
+Start the Fiori app in preview mode (npm start).
+Verify that:
+Books and their authors are displayed in the List Report.
+"Accept" and "Reject" buttons are visible and functional.
+Selecting books and clicking the buttons updates the order status correctly.
+Step 6: Deploy the Application to SAP Cloud Foundry
+Prepare the Project:
+Configure deployment settings in the mta.yaml file.
+Build and Deploy:
+Build the application into an MTA archive using mbt build.
+Deploy it to Cloud Foundry using cf deploy.
+Access the Deployed App:
+Test the app through the SAP Launchpad or direct URL.
+Expected Outcome
+A List Report displays all available books with their authors.
+Users can select multiple books and place orders.
+"Accept" and "Reject" buttons:
+Process the selected orders and update their statuses.
+Reflect changes in the List Report after execution.

@@ -1,0 +1,6 @@
+ID;bookID;title;authorName;price;quantity;orders_ID
+abd2e9d1-7a16-4f9b-a751-a4f67d2c3e96;B1;1984;George Orwell;15.99;10;abd2e9d1-7a16-4f9b-a751-a4f67d2c3e96
+68da1909-8995-404b-bf0c-063277c733f8;B2;Harry Potter and the Philosopher's Stone;J.K. Rowling;12.99;5;68da1909-8995-404b-bf0c-063277c733f8
+945bd27a-57d8-49d9-9459-7dab7317a74f;B3;The Hobbit;J.R.R. Tolkien;10.99;8;945bd27a-57d8-49d9-9459-7dab7317a74f
+b12b1f14-91a4-4d74-9190-970247254d54;B4;Murder on the Orient Express;Agatha Christie;9.99;6;b12b1f14-91a4-4d74-9190-970247254d54
+46271057-b1ae-46d6-95da-929fb5655c9d;B5;The Adventures of Tom Sawyer;Mark Twain;8.99;12;46271057-b1ae-46d6-95da-929fb5655c9d

@@ -1,0 +1,6 @@
+code;criticality;name;descr
+SC1;1;Processed;Order has been processed successfully.
+SC2;2;Pending;Order is pending confirmation.
+SC3;3;Cancelled;Order has been cancelled by the user.
+SC4;4;Shipped;Order has been shipped and is on its way.
+SC5;5;Delivered;Order has been delivered to the customer.
